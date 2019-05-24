@@ -1,0 +1,25 @@
+.keyboard {
+    background-color: blue;
+    color: aliceblue;
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+}
+
+#marquee {
+    border: 2px dotted gray;
+    width: 300px;
+    height: 50px;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+#messageBox {
+    border: 2px dotted gray;
+    width: 300px;
+    height: 50px;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
