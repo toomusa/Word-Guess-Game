@@ -1,7 +1,7 @@
 // Define array of Words
 const words = ["Acura", "AlfaRomeo", "AstonMartin", "Audi", "Bentley", "BMW", "Bugatti", "Buick", "Cadillac", 
                 "Chevrolet", "Chrysler", "Citroen", "Dodge", "Ferrari", "Fiat", "Ford", "GMC", "Honda", "Hyundai", 
-                "Infiniti", "Jaguar", "Jeep", "Kia", "Koenigsegg", "Lamborghini", "Land Rover", "Lexus", "Maserati", 
+                "Infiniti", "Jaguar", "Jeep", "Kia", "Koenigsegg", "Lamborghini", "LandRover", "Lexus", "Maserati", 
                 "Mazda", "McLaren", "Mercedes", "Mini", "Mitsubishi", "Nissan", "Pagani", "Peugeot", "Porsche", "Renault", 
                 "RollsRoyce", "Saab", "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen", "Volvo", ];
 
@@ -12,22 +12,51 @@ var letters = [];
 var guessesLeft = 20;
 var randomWord; 
 var lettersLeft; 
-
+var wins = 0;
+var losses = 0;
 
 let $activeWord = document.getElementById("activeWord");
-let $attempts = document.getElementById("attempts");
-let $guesses = document.getElementById("guesses");
 let $wins = document.getElementById("wins");
 let $losses = document.getElementById("losses");
+let $guessesLeft = document.getElementById("guessesLeft");
+let $guesses = document.getElementById("guesses");
 let $messageBox = document.getElementById("messageBox");
+
 let $marquee = document.getElementById("marquee");
 let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", 
                 "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
+
+// set the game start conditions
+
+function setGame() {
+    randomWord = words[Math.floor(Math.random()*words.length)].toUpperCase();
+    lettersLeft = randomWord.length;
+    userPick = "";
+    attempts = [];
+    letters = [];
+    guessesLeft = 20;
+    $guessesLeft.textContent = guessesLeft;
+    $("#guesses").text("Guesses: ");
+    $("#messageBox").empty();
+    $("#activeWord").empty();
+    $(".keyboard").removeClass("button-clicked");
+    for (let i = 0; i < randomWord.length; i++) {
+        letters[i] = "_ ";
+        $activeWord.textContent = letters.join("");
+        console.log(randomWord);
+    }
+};
+
+setGame();
+
 // capture userPick from key press
 
 document.onkeyup = function(event) {
+    console.log(event.key)
+    $(`#${event.key}`).addClass("button-clicked");
     let userPick = event.key.toUpperCase();
+    $(this).addClass("button-clicked");
     validation(userPick);
 };
 
@@ -38,12 +67,6 @@ $(".keyboard").on("click", function () {
     $(this).addClass("button-clicked");
     validation(userPick);
 });
-
-// set the game
-(function setGame() {
-    randomWord = words[Math.floor(Math.random()*words.length)].toUpperCase();
-    lettersLeft = randomWord.length;
-})();
 
 // hide word characters with underscores and display
 
@@ -65,6 +88,7 @@ function validation (userPick) {
             $messageBox.textContent = "You chose " + userPick;
             $guesses.append(userPick + " ");
             guessesLeft--;
+            $guessesLeft.textContent = guessesLeft;
             runGame(userPick);
         }
     }            
@@ -79,7 +103,17 @@ function runGame (userPick) {
     console.log(userPick);
     if (guessesLeft < 1) {
         $messageBox.textContent = "You lose!";
-        // break;
+        losses++;
+        $losses.textContent = losses;
+        setTimeout(() => {
+            var restart = confirm("New Game?");
+            if (restart == true) {
+                setGame();
+            }
+            else {
+                alert("Thank you for playing");
+            }
+        }, 1000);
     } 
     else {
         for (let j = 0; j < randomWord.length; j++) {
@@ -89,27 +123,17 @@ function runGame (userPick) {
                 lettersLeft--;
                 if (lettersLeft === 0) {
                     $messageBox.textContent = "You Win!";
-                    var restart = confirm("New Game");
-                    if (restart == true) {
-                        $("#guesses").empty();
-                        $("#messageBox").empty();
-                        $("#activeWord").empty();
-                        userPick = "";
-                        attempts = [];
-                        guessesLeft = 20;
-                        // setGame();
-                        randomWord = words[Math.floor(Math.random()*words.length)].toUpperCase();
-                        lettersLeft = randomWord.length;
-                        for (let i = 0; i < randomWord.length; i++) {
-                            letters[i] = "_ ";
-                            $activeWord.textContent = letters.join("");
-                            console.log(randomWord);
+                    wins++;
+                    $wins.textContent = wins;
+                    setTimeout(() => {
+                        var restart = confirm("Start New Game?");
+                        if (restart == true) {
+                            setGame();
                         }
-                    }
-                    else {
-                        alert("Thank you for playing");
-                    }
-                    // break;
+                        else {
+                            alert("Thank you for playing");
+                        }   
+                    }, 1000);
                 } 
             }
         }

@@ -16,19 +16,86 @@
 }
 
 #marquee {
-    border: 2px dotted gray;
-    width: 300px;
+    border: none;
+    width: 100%;
     height: 50px;
     text-align: center;
-    padding: 10px;
-    margin: 10px;
+    align-content: center;
+    /* padding: 10px;
+    margin: 10px; */
+}
+
+#scoreboard {
+    border: none;
+    width: 600px;
+    height: 50px;
+    text-align: center;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 0 auto;
 }
 
 #messageBox {
     border: 2px dotted gray;
-    width: 300px;
+    width: 500px;
     height: 50px;
     text-align: center;
+    align-content: center;
     padding: 10px;
     margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+    text-emphasis: bold;
+    /* margin-bottom: -10px; */
+}
+
+#main {
+    height: 20px;
+    text-align: center;
+    align-content: center;
+    margin-bottom: 20px;
+    /* padding-bottom: -200px; */
+}
+
+#gameText {
+    height: 20px;
+    text-align: center;
+    align-content: center;
+}
+
+#activeWord {
+    font-size: 40px;
+    text-align: center;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -40px;
+    margin-bottom: 50px;
+}
+
+#guesses {
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    align-content: center;
+}
+
+.onScreen {
+    text-align: center;
+    align-content: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+#wins, #losses, #guessesLeft {
+    font-size: 20px;
+    text-emphasis: bold;
+    text-align: center;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }

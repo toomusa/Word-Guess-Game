@@ -11,66 +11,94 @@
     <title>Word Guessing Game</title>
 </head>
 <body>
-    <h1>Word Guessing Game</h1>
+<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1>Word Guessing Game</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<p style="text-align: center">The Category is famous car brands. Let's see how many you can guess.</p>
+			</div>
+		</div>
+		<div class="row">
+			<!-- <div id="marquee"> -->
+				<div class="row" id="scoreboard">
+					<div class="col-sm-4 col-xs-12">
+						<p>Wins: <label id="wins">0</label></p>
+					</div>
+					<div class="col-sm-4 col-xs-12">
+						<p>Losses: <label id="losses">0</label></p>
+					</div>
+					<div class="col-sm-4 col-xs-12">
+						<p>Attempts: <label id="guessesLeft">20</label></p>
+					</div>
+				</div>
+			<!-- </div> -->
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="jumbotron" id="main">
+					<div id="activeWord">
+						<p>Get Ready to Play!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="messageBox">
+					<p>Hello</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="guesses">
+					<p>Guesses:&nbsp;&nbsp;</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="onScreen">
+					<button class="keyboard" id="a">A</button>
+					<button class="keyboard" id="b">B</button>
+					<button class="keyboard" id="c">C</button>
+					<button class="keyboard" id="d">D</button>
+					<button class="keyboard" id="e">E</button>
+					<button class="keyboard" id="f">F</button>
+					<button class="keyboard" id="g">G</button>
+					<button class="keyboard" id="h">H</button>
+					<button class="keyboard" id="i">I</button>
+				</div>
 
-    <!-- Display blank word -->
+				<div class="onScreen">
+					<button class="keyboard" id="j">J</button>
+					<button class="keyboard" id="k">K</button>
+					<button class="keyboard" id="l">L</button>
+					<button class="keyboard" id="m">M</button>
+					<button class="keyboard" id="n">N</button>
+					<button class="keyboard" id="o">O</button>
+					<button class="keyboard" id="p">P</button>
+					<button class="keyboard" id="q">Q</button>
+				</div>
 
-    <!-- Display letters guessed -->
+				<div class="onScreen">
+					<button class="keyboard" id="r">R</button>
+					<button class="keyboard" id="s">S</button>
+					<button class="keyboard" id="t">T</button>
+					<button class="keyboard" id="u">U</button>
+					<button class="keyboard" id="v">V</button>
+					<button class="keyboard" id="w">W</button>
+					<button class="keyboard" id="x">X</button>
+					<button class="keyboard" id="y">Y</button>
+					<button class="keyboard" id="z">Z</button>
+				</div>
+			</div>
+		</div>
 
-    <!-- Display guesses remaining -->
-
-    <!-- Image showing progress -->
-    <div id="activeWord">
-         
-           
-        </div>
-
-    <div id="marquee">
-        Hello
-    </div>
-
-    <div id="messageBox">
-        Hello
-    </div>
-
-    <div id="guesses">
-        Guesses:&nbsp;&nbsp;
-    </div>
-
-    <div>
-		<button class="keyboard">A</button>
-		<button class="keyboard">B</button>
-		<button class="keyboard">C</button>
-		<button class="keyboard">D</button>
-		<button class="keyboard">E</button>
-		<button class="keyboard">F</button>
-		<button class="keyboard">G</button>
-		<button class="keyboard">H</button>
-		<button class="keyboard">I</button>
-	</div>
-
-	<div>
-		<button class="keyboard">J</button>
-		<button class="keyboard">K</button>
-		<button class="keyboard">L</button>
-		<button class="keyboard">M</button>
-		<button class="keyboard">N</button>
-		<button class="keyboard">O</button>
-		<button class="keyboard">P</button>
-		<button class="keyboard">Q</button>
-	</div>
-
-	<div>
-		<button class="keyboard">R</button>
-		<button class="keyboard">S</button>
-		<button class="keyboard">T</button>
-		<button class="keyboard">U</button>
-		<button class="keyboard">V</button>
-		<button class="keyboard">W</button>
-		<button class="keyboard">X</button>
-		<button class="keyboard">Y</button>
-		<button class="keyboard">Z</button>
-	</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script rel="javascript" src="./assets/js/game.js"></script>
