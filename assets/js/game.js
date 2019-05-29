@@ -1,132 +1,122 @@
-    
-    
 // Define array of Words
-const words = ["mercedes", "audi", "tesla", "hyundai", "ford", "toyota", "volvo", "ferrari", "porsche", "lamborghini"];
+const words = ["Acura", "AlfaRomeo", "AstonMartin", "Audi", "Bentley", "BMW", "Bugatti", "Buick", "Cadillac", 
+                "Chevrolet", "Chrysler", "Citroen", "Dodge", "Ferrari", "Fiat", "Ford", "GMC", "Honda", "Hyundai", 
+                "Infiniti", "Jaguar", "Jeep", "Kia", "Koenigsegg", "Lamborghini", "Land Rover", "Lexus", "Maserati", 
+                "Mazda", "McLaren", "Mercedes", "Mini", "Mitsubishi", "Nissan", "Pagani", "Peugeot", "Porsche", "Renault", 
+                "RollsRoyce", "Saab", "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen", "Volvo", ];
 
 // define variables
-let userPick = [];
-let randomWord;
-let guesses = [];
-let rightGuess;
-let wrongGuess;
-// let activeWord = randomWord;
-let $activeWord = document.getElementById("#activeWord");
+var userPick;
+var attempts = [];
+var letters = [];
+var guessesLeft = 20;
+var randomWord; 
+var lettersLeft; 
+
+
+let $activeWord = document.getElementById("activeWord");
 let $attempts = document.getElementById("attempts");
 let $guesses = document.getElementById("guesses");
 let $wins = document.getElementById("wins");
 let $losses = document.getElementById("losses");
 let $messageBox = document.getElementById("messageBox");
 let $marquee = document.getElementById("marquee");
-let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", 
+                "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-var isLetter = function(c) {
-    return c.length === 1 && (c.toLowerCase() != c.toUpperCase()); 
+// capture userPick from key press
+
+document.onkeyup = function(event) {
+    let userPick = event.key.toUpperCase();
+    validation(userPick);
+};
+
+// capture userPick from on-screen keyboard
+
+$(".keyboard").on("click", function () {
+    let userPick = ($(this).text()).toUpperCase();
+    $(this).addClass("button-clicked");
+    validation(userPick);
+});
+
+// set the game
+(function setGame() {
+    randomWord = words[Math.floor(Math.random()*words.length)].toUpperCase();
+    lettersLeft = randomWord.length;
+})();
+
+// hide word characters with underscores and display
+
+for (let i = 0; i < randomWord.length; i++) {
+    letters[i] = "_ ";
+    $activeWord.textContent = letters.join("");
 }
 
-var updateText = function () {
-    showPick();
-    updateMarquee();
-}
+// validate user input
 
-function displayWord() {
-    $("#activeWord").textContent = randomWord;
-}
-
-function showPick() {
-    $guesses.textContent = userPick;
-}
-
-function updateMarquee() {
-    $("#marquee").textContent = activeWord;
-}
-
-
-// $(document).ready(function(){
-
- 
-    // when a key is pressed, verify that the key is a letter, change it to upper case, and assign it to userPick
-
-    document.onkeyup = function(event) {
-        let userPick = event.key.toUpperCase();
-        if (isLetter(userPick)) {
-            $messageBox.textContent = userPick;
-            $guesses.append(userPick + " ");
-            console.log(userPick);
-        } else {
-            $messageBox.textContent = "Pick a letter!";
+function validation (userPick) {
+    if (userPick.length === 1 && (userPick.toLowerCase() != userPick.toUpperCase())) {    
+        if (attempts.includes(userPick)) {
+            $messageBox.textContent = "You already picked " + userPick + ", try again!";
         }
-    }
-
-    // Append to letters guessed if key press is not a match
-
-    // when a screen keyboard key is clicked, verify that the key is a letter, change it to upper case, and assign it to userPick
-
-    $(".keyboard").on("click", function() {
-        userPick = ($(this).text()).toUpperCase();
-        if (isLetter(userPick)) {
-            $messageBox.textContent = userPick;
-            $guesses.append(userPick + " ");
-            console.log(userPick);
-        } else {
-            $messageBox.textContent = "Pick a letter!";
-        }
-      });
-
-
-    // Split array elements into letters
-    for (let i = 0; i < words.length; i++) {
-        randomWord = words[Math.floor(Math.random()*words.length)].toUpperCase();
-        letters = randomWord.split("");
-        answer = randomWord.split("");
-    }
-
-
-    // Hide display of Words
-    // check to see if userPick has already been selected or if it's a match
-    
-    for (var n = 0; n < answer.length; n++){
-        // debugger;
-        if (userPick === answer[n]) {     
-            $marquee.textContent = userPick; 
-            console.log("yes");    
-            // activeWord = document.getElementById("activeWord");
-            // capture = document.createTextNode(answer[n]);
-            // activeWord.appendChild(capture);
-        } 
         else {
-            letters[n] = "_ ";
-            activeWord = document.getElementById("activeWord");
-            spacer = document.createTextNode(letters[n]);
-            activeWord.appendChild(spacer);
+            attempts.push(userPick);
+            console.log(attempts);
+            $messageBox.textContent = "You chose " + userPick;
+            $guesses.append(userPick + " ");
+            guessesLeft--;
+            runGame(userPick);
+        }
+    }            
+    else {
+        $messageBox.textContent = "Pick a letter!";
+    }
+};
+
+// main game loop
+
+function runGame (userPick) {
+    console.log(userPick);
+    if (guessesLeft < 1) {
+        $messageBox.textContent = "You lose!";
+        // break;
+    } 
+    else {
+        for (let j = 0; j < randomWord.length; j++) {
+            if (randomWord[j] === userPick) {
+                letters[j] = userPick;
+                $activeWord.textContent = letters.join("");
+                lettersLeft--;
+                if (lettersLeft === 0) {
+                    $messageBox.textContent = "You Win!";
+                    var restart = confirm("New Game");
+                    if (restart == true) {
+                        $("#guesses").empty();
+                        $("#messageBox").empty();
+                        $("#activeWord").empty();
+                        userPick = "";
+                        attempts = [];
+                        guessesLeft = 20;
+                        // setGame();
+                        randomWord = words[Math.floor(Math.random()*words.length)].toUpperCase();
+                        lettersLeft = randomWord.length;
+                        for (let i = 0; i < randomWord.length; i++) {
+                            letters[i] = "_ ";
+                            $activeWord.textContent = letters.join("");
+                            console.log(randomWord);
+                        }
+                    }
+                    else {
+                        alert("Thank you for playing");
+                    }
+                    // break;
+                } 
+            }
         }
     }
+}
 
+console.log(randomWord);
+console.log(userPick);
+console.log(lettersLeft);
 
-    // Alternative method???
-
-    // for (var i = 0; i < randomWord.length; i++) {
-    //     if (userPick === randomWord.charAt(i)) {
-    //         $('#container').find(":nth-child(" + (i + 1) + ")");
-    //         matchFound = true;
-    //         console.log(userPick);
-    //     }
-    // }
-
-    console.log(randomWord);
-    console.log(letters);
-    console.log(answer);
-
-
-
-
-    // check key press against Word letters
-
-    // Display letter element if key press is a match
-
-    // Alert win or loss
-
-    // Start over with new Word
-
-
-
-// });

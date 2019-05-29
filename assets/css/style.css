@@ -6,6 +6,15 @@
     font-size: 12px;
 }
 
+.button-clicked {
+    background-color: lightblue;
+    color: black;
+    width: 40px;
+    height: 40px;
+    font-size: 10px;
+    border: none;
+}
+
 #marquee {
     border: 2px dotted gray;
     width: 300px;
