@@ -3,8 +3,24 @@ const words = ["Acura", "AlfaRomeo", "AstonMartin", "Audi", "Bentley", "BMW", "B
                 "Chevrolet", "Chrysler", "Citroen", "Dodge", "Ferrari", "Fiat", "Ford", "GMC", "Honda", "Hyundai", 
                 "Infiniti", "Jaguar", "Jeep", "Kia", "Koenigsegg", "Lamborghini", "LandRover", "Lexus", "Maserati", 
                 "Mazda", "McLaren", "Mercedes", "Mini", "Mitsubishi", "Nissan", "Pagani", "Peugeot", "Porsche", "Renault", 
-                "RollsRoyce", "Saab", "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen", "Volvo", ];
+                "RollsRoyce", "Saab", "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen", "Volvo"];
 
+const warriors = ["JordanBell","AndrewBogut","QuinnCook","DeMarcusCousins","StephenCurry","MarcusDerrickson",
+                    "KevinDurant","JacobEvans","DraymondGreen","AndreIguodala","JonasJerebko","DamianJones",
+                    "DamionLee","ShaunLivingston","KevonLooney","AlfonzoMcKinnie","KlayThompson"];
+
+const capitals = ["Kabul","Algiers","BuenosAires","Vienna","Baku","Brussels","Brasilia","Ottawa","Beijing ",
+                    "Bogota ","SanJose","Prague ","Cairo","Copenhagen","Paris","Berlin","Athens","Budapest",
+                    "NewDelhi","Jakarta","Tehran","Dublin","Jerusalem ","Rome","Kingston","Tokyo","Nairobi",
+                    "Beirut","Tripoli","MexicoCity ","Monaco","Amsterdam ","Oslo","PanamaCity ","Lima","Warsaw",
+                    "Lisbon","Bucharest ","Moscow","Singapore ","Seoul","Madrid","Khartoum","Stockholm","Damascus",
+                    "Taipei","Bangkok","Ankara","AbuDhabi ","WashingtonDC"]
+
+const category = [
+    [...words],
+    [...warriors],
+    [...capitals]
+]
 // define variables
 var userPick;
 var attempts = [];
@@ -30,7 +46,10 @@ let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
 // set the game start conditions
 
 function setGame() {
-    randomWord = words[Math.floor(Math.random()*words.length)].toUpperCase();
+    randomArray = category[Math.floor(Math.random()*category.length)];
+    randomWord = randomArray[Math.floor(Math.random()*randomArray.length)].toUpperCase();
+    console.log(randomArray);
+    console.log(randomWord);
     lettersLeft = randomWord.length;
     userPick = "";
     attempts = [];
@@ -41,6 +60,15 @@ function setGame() {
     $("#messageBox").empty();
     $("#activeWord").empty();
     $(".keyboard").removeClass("button-clicked");
+    if (randomArray === category[0]) {
+        $("#category").text("Famous Car Brands");
+    }
+    if (randomArray === category[1]) {
+        $("#category").text("Golden State Warriors");
+    }
+    if (randomArray === category[2]){
+        $("#category").text("World Capitals");
+    }
     for (let i = 0; i < randomWord.length; i++) {
         letters[i] = "_ ";
         $activeWord.textContent = letters.join("");
