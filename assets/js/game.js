@@ -117,6 +117,20 @@ function validation (userPick) {
             $guesses.append(userPick + " ");
             guessesLeft--;
             $guessesLeft.textContent = guessesLeft;
+            if (guessesLeft === 0) {
+                $messageBox.textContent = "You lose!";
+                losses++;
+                $losses.textContent = losses;
+                setTimeout(() => {
+                    var restart = confirm("New Game?");
+                    if (restart == true) {
+                        setGame();
+                    }
+                    else {
+                        alert("Thank you for playing");
+                    }
+                }, 1000);
+            } 
             runGame(userPick);
         }
     }            
@@ -129,21 +143,6 @@ function validation (userPick) {
 
 function runGame (userPick) {
     console.log(userPick);
-    if (guessesLeft < 1) {
-        $messageBox.textContent = "You lose!";
-        losses++;
-        $losses.textContent = losses;
-        setTimeout(() => {
-            var restart = confirm("New Game?");
-            if (restart == true) {
-                setGame();
-            }
-            else {
-                alert("Thank you for playing");
-            }
-        }, 1000);
-    } 
-    else {
         for (let j = 0; j < randomWord.length; j++) {
             if (randomWord[j] === userPick) {
                 letters[j] = userPick;
@@ -166,7 +165,49 @@ function runGame (userPick) {
             }
         }
     }
-}
+
+// old code with bug
+
+// function runGame (userPick) {
+//     console.log(userPick);
+//     if (guessesLeft === 0) {
+//         $messageBox.textContent = "You lose!";
+//         losses++;
+//         $losses.textContent = losses;
+//         setTimeout(() => {
+//             var restart = confirm("New Game?");
+//             if (restart == true) {
+//                 setGame();
+//             }
+//             else {
+//                 alert("Thank you for playing");
+//             }
+//         }, 1000);
+//     } 
+//     else {
+//         for (let j = 0; j < randomWord.length; j++) {
+//             if (randomWord[j] === userPick) {
+//                 letters[j] = userPick;
+//                 $activeWord.textContent = letters.join("");
+//                 lettersLeft--;
+//                 if (lettersLeft === 0) {
+//                     $messageBox.textContent = "You Win!";
+//                     wins++;
+//                     $wins.textContent = wins;
+//                     setTimeout(() => {
+//                         var restart = confirm("Start New Game?");
+//                         if (restart == true) {
+//                             setGame();
+//                         }
+//                         else {
+//                             alert("Thank you for playing");
+//                         }   
+//                     }, 1000);
+//                 } 
+//             }
+//         }
+//     }
+// }
 
 console.log(randomWord);
 console.log(userPick);
